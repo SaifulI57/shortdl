@@ -11,7 +11,11 @@ class ParamsRequest(_message.Message):
     def __init__(self, url: _Optional[str] = ...) -> None: ...
 
 class ReturnsReply(_message.Message):
-    __slots__ = ("status",)
+    __slots__ = ("status", "description", "filename")
     STATUS_FIELD_NUMBER: _ClassVar[int]
+    DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+    FILENAME_FIELD_NUMBER: _ClassVar[int]
     status: str
-    def __init__(self, status: _Optional[str] = ...) -> None: ...
+    description: str
+    filename: str
+    def __init__(self, status: _Optional[str] = ..., description: _Optional[str] = ..., filename: _Optional[str] = ...) -> None: ...

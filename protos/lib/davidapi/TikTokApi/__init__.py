@@ -1,1 +1,1 @@
-from TikTokApi.tiktok import TikTokApi
+from lib.davidapi.TikTokApi.tiktok import TikTokApi

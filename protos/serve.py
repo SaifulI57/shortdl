@@ -5,13 +5,13 @@ import httpx
 import zipfile
 from concurrent import futures
 from lib.dtiktok.crawlers.hybrid.hybrid_crawler import HybridCrawler
+from lib.davidapi.TikTokApi.api.video import Video
 import multi_pb2
 import multi_pb2_grpc
 import asyncio
 from grpc import aio
 
 HybridCrawler = HybridCrawler()
-
 
 class DownloadShortServicer(multi_pb2_grpc.DownloadShortServicer):
     async def DownTiktok(self, request, context):
@@ -41,7 +41,7 @@ class DownloadShortServicer(multi_pb2_grpc.DownloadShortServicer):
                 async with aiofiles.open(file_path, 'wb') as out_file:
                     await out_file.write(response.content)
 
-                return multi_pb2.ReturnsReply(status="downloaded")
+                return multi_pb2.ReturnsReply(status="downloaded", description=data.get("desc"), filename=file_path)
 
             elif data_type == 'image':
                 zip_file_name = f"{platform}_{aweme_id}_images.zip"
@@ -78,7 +78,8 @@ class DownloadShortServicer(multi_pb2_grpc.DownloadShortServicer):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
-
+    
+    
     async def fetch_data(self, url: str, headers: dict = None):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'

@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmulti.proto\x12\rdownloadshort\"\x1c\n\rParamsRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\"\x1e\n\x0cReturnsReply\x12\x0e\n\x06status\x18\x01 \x01(\t2\xbf\x02\n\rDownloadShort\x12I\n\nDownTiktok\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x12J\n\x0b\x44ownYoutube\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x12I\n\nInfoTiktok\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x12L\n\rDownTiktokAlt\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x42\x03Z\x01.b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmulti.proto\x12\rdownloadshort\"\x1c\n\rParamsRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\"E\n\x0cReturnsReply\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08\x66ilename\x18\x03 \x01(\t2\xf4\x01\n\rDownloadShort\x12I\n\nDownTiktok\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x12J\n\x0b\x44ownYoutube\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x12L\n\rDownTiktokAlt\x12\x1c.downloadshort.ParamsRequest\x1a\x1b.downloadshort.ReturnsReply\"\x00\x42\x03Z\x01.b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -25,7 +25,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_PARAMSREQUEST']._serialized_start=30
   _globals['_PARAMSREQUEST']._serialized_end=58
   _globals['_RETURNSREPLY']._serialized_start=60
-  _globals['_RETURNSREPLY']._serialized_end=90
-  _globals['_DOWNLOADSHORT']._serialized_start=93
-  _globals['_DOWNLOADSHORT']._serialized_end=412
+  _globals['_RETURNSREPLY']._serialized_end=129
+  _globals['_DOWNLOADSHORT']._serialized_start=132
+  _globals['_DOWNLOADSHORT']._serialized_end=376
 # @@protoc_insertion_point(module_scope)

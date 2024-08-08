@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import ClassVar, Iterator, Optional
 from typing import TYPE_CHECKING, ClassVar, Optional
 
-from TikTokApi.exceptions import InvalidResponseException
+from lib.davidapi.TikTokApi.exceptions import InvalidResponseException
 
 if TYPE_CHECKING:
     from ..tiktok import TikTokApi

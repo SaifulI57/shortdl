@@ -2,7 +2,6 @@ package syoutube
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"regexp"
@@ -17,11 +16,12 @@ import (
 )
 
 type Metadata struct {
-	Description string
-	Caption     youtube.CaptionTrack
-	Title       string
-	Transcript  string
-	Checksum    string
+	Description  string
+	Caption      youtube.CaptionTrack
+	Title        string
+	Transcript   string
+	ChecksumUrl  string
+	ChecksumDesc string
 }
 
 func GetYoutubeShort(idv string) (Metadata, error) {
@@ -50,7 +50,6 @@ func GetYoutubeShort(idv string) (Metadata, error) {
 	if err != nil {
 		return Metadata{}, err
 	}
-
 	format := vid.Formats.WithAudioChannels()
 	sfile := "download/" + utils.ComputeChecksum(strings.ReplaceAll(vid.Title, " ", "_")) + ".mp4"
 
@@ -73,20 +72,18 @@ func GetYoutubeShort(idv string) (Metadata, error) {
 	if err != nil {
 		return Metadata{}, errors.New(msgerr)
 	}
-	fmt.Print(metadata.Transcript)
-	checkSum := utils.ComputeChecksum(metadata.Transcript)
-
+	checkSumUrl := utils.ComputeChecksum(metadata.Caption.BaseURL)
+	checkSumDesc := utils.ComputeChecksum(metadata.Description)
 	// var existingChecksum models.ChecksumData
-	result, err := utils.GetMetadata(database.DB, checkSum)
+	result, err := utils.GetMetadata(database.DB, checkSumUrl)
 	// fmt.Print(&result.RowsAffected)
 
-	fmt.Print(result)
 	if err == nil {
 		// Jika checksum ditemukan, kembalikan pesan bahwa video sudah diunduh
 		msg := "already downloaded the video"
-		return Metadata{Checksum: result.ChecksumValue}, errors.New(msg)
+		return Metadata{ChecksumUrl: result.ChecksumUrl}, errors.New(msg)
 	} else {
-		newChecksum := models.ChecksumData{ChecksumValue: checkSum}
+		newChecksum := models.ChecksumData{ChecksumUrl: checkSumUrl, ChecksumValue: checkSumDesc, Uploaded: false, Downloaded: true}
 		if err := database.DB.Create(&newChecksum).Error; err != nil {
 			msg := "duplicated video"
 
@@ -129,7 +126,8 @@ func GetYoutubeShort(idv string) (Metadata, error) {
 	metadata.Description = vid.Description
 	metadata.Caption = vid.CaptionTracks[0]
 	metadata.Title = vid.Title
-	metadata.Checksum = checkSum
+	metadata.ChecksumUrl = checkSumUrl
+	metadata.ChecksumDesc = checkSumDesc
 	// Wait for all goroutines to finish
 	wg.Wait()
 
